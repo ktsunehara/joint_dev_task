@@ -57,7 +57,7 @@ def q7
   array = ["1", "2", "3", "4", "5"]
 
   # 以下に回答を記載
-  p rray = ["1", "2", "3", "4", "5"].map(&:to_i)
+  p array = ["1", "2", "3", "4", "5"].map!(&:to_i)
 
 end
 
@@ -101,6 +101,11 @@ def q11
   sports = ["サッカー", "バスケ", "野球", ["フットサル", "野球"], "水泳", "ハンドボール", ["卓球", "サッカー", "ボルダリング"]]
 
   # 以下に回答を記載
+  sports.flatten!
+  sports.uniq!
+  sports.each.with_index(1) do |hobby,index|
+    puts "No#{index} #{hobby}"
+  end
 
 end
 
@@ -108,7 +113,7 @@ def q12
   data = { user: { name: "satou", age: 33 } }
 
   # 以下に回答を記載
-  puts data[0]
+  puts data[:user][:name]
 end
 
 def q13
@@ -116,6 +121,8 @@ def q13
   update_data = { age: 32, address: "沖縄" }
 
   # 以下に回答を記載
+  p user_data = user_data.merge(update_data)
+
 
 end
 
@@ -123,6 +130,7 @@ def q14
   data = { name: "satou", age: 33, address: "saitama", hobby: "soccer", email: "hoge@fuga.com" }
 
   # 以下に回答を記載
+  p key = data.keys
 
 end
 
@@ -131,6 +139,9 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
+  puts data1.include?(:age) ? "OK" : "NG"
+  puts data2.member?(:age) ? "OK" : "NG"
+
 
 end
 
@@ -143,12 +154,34 @@ def q16
   ]
 
   # 以下に回答を記載
+  users.each {|user|
+  puts "私の名前は #{user[:name]} です。　年齢は #{user[:age] }です"}
+
 
 end
 
 class UserQ17
   # 以下に回答を記載
+  def initialize(name:,age:,gender:, admin:)
+    @name = name
+    @age = age
+    @gender = gender
+    @admin = admin
+  end
 
+  def info
+    puts "
+名前：#{@name}
+年齢：#{@age}
+性別：#{@gender}
+管理者権限：#{@admin ==true ? "有り":"無し"}"
+
+# puts　puts puts とした方が良いでしょうか？
+# \nできませんでした。ググっても当たらないので聞いた方が早いと思いました。
+# 改行方法を教えて下さい。よろしくお願いします。
+
+
+  end
 end
 
 def q17
