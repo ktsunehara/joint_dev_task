@@ -57,7 +57,7 @@ def q7
   array = ["1", "2", "3", "4", "5"]
 
   # 以下に回答を記載
-  p array = ["1", "2", "3", "4", "5"].map!(&:to_i)
+  p array.map!(&:to_i)
 
 end
 
@@ -101,9 +101,7 @@ def q11
   sports = ["サッカー", "バスケ", "野球", ["フットサル", "野球"], "水泳", "ハンドボール", ["卓球", "サッカー", "ボルダリング"]]
 
   # 以下に回答を記載
-  sports.flatten!
-  sports.uniq!
-  sports.each.with_index(1) do |hobby,index|
+  sports.flatten!.uniq!.each.with_index(1) do |hobby,index|
     puts "No#{index} #{hobby}"
   end
 
@@ -121,7 +119,7 @@ def q13
   update_data = { age: 32, address: "沖縄" }
 
   # 以下に回答を記載
-  p user_data = user_data.merge(update_data)
+  p user_data.merge!(update_data)
 
 
 end
@@ -139,8 +137,9 @@ def q15
   data2 = { name: "yamada", hobby: "baseball", role: "normal" }
 
   # 以下に回答を記載
-  puts data1.include?(:age) ? "OK" : "NG"
-  puts data2.member?(:age) ? "OK" : "NG"
+  puts data1.has_key?(:age) ? "OK" : "NG"
+  puts data2.has_key?(:age) ? "OK" : "NG"
+
 
 
 end
@@ -162,25 +161,21 @@ end
 
 class UserQ17
   # 以下に回答を記載
-  def initialize(name:,age:,gender:, admin:)
-    @name = name
-    @age = age
-    @gender = gender
-    @admin = admin
+  def initialize(**user)
+    @name = user [:name]
+    @age = user [:age]
+    @gender = user [:gender]
+    @admin = user [:admin]
   end
 
   def info
-    puts "
-名前：#{@name}
-年齢：#{@age}
-性別：#{@gender}
-管理者権限：#{@admin ==true ? "有り":"無し"}"
-#質問お願いします。
-# puts　puts puts とした方が良いでしょうか？
-# \nできませんでした。ググっても当たらないので聞いた方が早いと思いました。
-# 改行方法を教えて下さい。よろしくお願いします。
-
-
+    admin = @admin ? '有り' : '無し'
+    puts <<~EOS
+    名前：#{@name}
+    年齢：#{@age}
+    性別：#{@gender}
+    管理者権限：#{admin}
+      EOS
   end
 end
 
@@ -196,6 +191,15 @@ end
 
 class UserQ18
   # 以下に回答を記載
+  def initialize(**user)
+    @name = user[:name]
+    @age =  user[:age]
+  end
+  
+  def introduce
+    puts @age > 20 ? 
+    "こんにちは，#{@name}と申します。宜しくお願いいたします。":"はいさいまいど〜，#{@name}です！！！"
+  end
 
 end
 
@@ -212,39 +216,64 @@ class Item
   # 以下を修正して下さい
 
   def initialize(name)
-    @name = name
+    @name = name[:name]
+  end
+  def name
+    puts @name
   end
 end
 
 def q19
   # ここは変更しないで下さい
   book = Item.new(name: "ゼロ秒思考")
-  puts book.name
+  book.name
 end
 
-class UserQ20
-  # 以下に回答を記載
+# class UserQ20
+#   # 以下に回答を記載
+#   attr_reader :name, :age
+# 
+#   def initialize(**user)
+#     @name = user[:name]
+#     @age = user[:age]
+#   end
+# end
+# 
+# class Zoo
+#   # 以下に回答を記載
+#   def initialize(**zoo)
+#     @infant = [:entry_fee][:infant]
+#     @children = [:entry_fee][:children]
+#     @adult = [:entry_fee][:adult]
+#     @senior = [:entry_fee][:senior]
 
-end
+# end
+# def info_entry_fee(user)
+#   if @age < 6
+#     puts "#{@name}さんの入場料金は#{@infant}  円です。"
+#   elsif @age < 13
+#     puts "#{@name}さんの入場料金は#{@children}  円です。"
+#   elsif @age < 65
+#     puts "#{@name}さんの入場料金は#{@adult}  円です。"
+#   elsif @age < 121
+#     puts "#{@name}さんの入場料金は#{@senior}  円です。"
+#   end
+# 
+# end
+# 
+# 
+# def q20
+#   # ここは変更しないで下さい（動物園・ユーザー情報は変更していただいてOKです）
+#   zoo = Zoo.new(name: "旭山動物園", entry_fee: { infant: 0, children: 400, adult: 800, senior: 500 })
+# 
+#   users = [
+#     UserQ20.new(name: "たま", age: 3),
+#     UserQ20.new(name: "ゆたぼん", age: 10),
+#     UserQ20.new(name: "あじー", age: 32),
+#     UserQ20.new(name: "ぎん", age: 108)
+#   ]
 
-class Zoo
-  # 以下に回答を記載
-
-end
-
-
-def q20
-  # ここは変更しないで下さい（動物園・ユーザー情報は変更していただいてOKです）
-  zoo = Zoo.new(name: "旭山動物園", entry_fee: { infant: 0, children: 400, adult: 800, senior: 500 })
-
-  users = [
-    UserQ20.new(name: "たま", age: 3),
-    UserQ20.new(name: "ゆたぼん", age: 10),
-    UserQ20.new(name: "あじー", age: 32),
-    UserQ20.new(name: "ぎん", age: 108)
-  ]
-
-  users.each do |user|
-    zoo.info_entry_fee(user)
-  end
-end
+#   users.each do |user|
+#     zoo.info_entry_fee(user)
+#   end
+# end
