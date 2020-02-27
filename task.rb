@@ -162,10 +162,10 @@ end
 class UserQ17
   # 以下に回答を記載
   def initialize(**user)
-    @name = user [:name]
-    @age = user [:age]
-    @gender = user [:gender]
-    @admin = user [:admin]
+    @name = user[:name]
+    @age = user[:age]
+    @gender = user[:gender]
+    @admin = user[:admin]
   end
 
   def info
@@ -195,9 +195,9 @@ class UserQ18
     @name = user[:name]
     @age =  user[:age]
   end
-  
+
   def introduce
-    puts @age > 20 ? 
+    puts @age > 20 ?
     "こんにちは，#{@name}と申します。宜しくお願いいたします。":"はいさいまいど〜，#{@name}です！！！"
   end
 
@@ -214,66 +214,67 @@ end
 
 class Item
   # 以下を修正して下さい
+  attr_reader :name
 
-  def initialize(name)
-    @name = name[:name]
+  def initialize(name:)
+    @name = name
   end
-  def name
-    puts @name
-  end
+
+
 end
 
 def q19
   # ここは変更しないで下さい
   book = Item.new(name: "ゼロ秒思考")
-  book.name
+  puts book.name
 end
 
-# class UserQ20
-#   # 以下に回答を記載
-#   attr_reader :name, :age
-# 
-#   def initialize(**user)
-#     @name = user[:name]
-#     @age = user[:age]
-#   end
-# end
-# 
-# class Zoo
-#   # 以下に回答を記載
-#   def initialize(**zoo)
-#     @infant = [:entry_fee][:infant]
-#     @children = [:entry_fee][:children]
-#     @adult = [:entry_fee][:adult]
-#     @senior = [:entry_fee][:senior]
+class UserQ20
+  attr_reader :name,:age
 
-# end
-# def info_entry_fee(user)
-#   if @age < 6
-#     puts "#{@name}さんの入場料金は#{@infant}  円です。"
-#   elsif @age < 13
-#     puts "#{@name}さんの入場料金は#{@children}  円です。"
-#   elsif @age < 65
-#     puts "#{@name}さんの入場料金は#{@adult}  円です。"
-#   elsif @age < 121
-#     puts "#{@name}さんの入場料金は#{@senior}  円です。"
-#   end
-# 
-# end
-# 
-# 
-# def q20
-#   # ここは変更しないで下さい（動物園・ユーザー情報は変更していただいてOKです）
-#   zoo = Zoo.new(name: "旭山動物園", entry_fee: { infant: 0, children: 400, adult: 800, senior: 500 })
-# 
-#   users = [
-#     UserQ20.new(name: "たま", age: 3),
-#     UserQ20.new(name: "ゆたぼん", age: 10),
-#     UserQ20.new(name: "あじー", age: 32),
-#     UserQ20.new(name: "ぎん", age: 108)
-#   ]
+  # コードを追加
+  def initialize(**user)
+      @name = user[:name]
+      @age = user[:age]
 
-#   users.each do |user|
-#     zoo.info_entry_fee(user)
-#   end
-# end
+  end
+
+end
+
+class Zoo
+   # コードを追加
+  def initialize(**zoo)
+      @infant = zoo[:entry_fee][:infant]
+      @children = zoo[:entry_fee][:children]
+      @adult = zoo[:entry_fee][:adult]
+      @senior = zoo[:entry_fee][:senior]
+
+  end
+  def info_entry_fee(user)
+    if user.age < 6
+      fee= @infant
+    elsif user.age < 13
+      fee= @children
+    elsif user.age < 65
+      fee= @adult
+    elsif user.age < 121
+      fee= @senior
+    end
+  puts "#{user.name}の入場料は#{fee}円です。"
+  end
+
+def q20
+  # ここは変更しないで下さい（動物園・ユーザー情報は変更していただいてOKです）
+  zoo = Zoo.new(name: "旭山動物園", entry_fee: { infant: 0, children: 400, adult: 800, senior: 500 })
+
+  users = [
+    UserQ20.new(name: "たま", age: 3),
+    UserQ20.new(name: "ゆたぼん", age: 10),
+    UserQ20.new(name: "あじー", age: 32),
+    UserQ20.new(name: "ぎん", age: 108)
+  ]
+
+  users.each do |user|
+    zoo.info_entry_fee(user)
+  end
+end
