@@ -229,39 +229,45 @@ def q19
   puts book.name
 end
 
+
+
+# ----------------------------------------------------------
+
+
 class UserQ20
+  # 以下に回答を記載
   attr_reader :name,:age
-
-  # コードを追加
   def initialize(**user)
-      @name = user[:name]
-      @age = user[:age]
-
+    @name = user[:name]
+    @age = user[:age]
   end
-
 end
 
 class Zoo
-   # コードを追加
-  def initialize(**zoo)
-      @infant = zoo[:entry_fee][:infant]
-      @children = zoo[:entry_fee][:children]
-      @adult = zoo[:entry_fee][:adult]
-      @senior = zoo[:entry_fee][:senior]
-
+  # 以下に回答を記載
+  def initialize(**fee)
+    @infant = fee[:entry_fee][:infant]
+    @children = fee[:entry_fee][:children]
+    @adult = fee[:entry_fee][:adult]
+    @senior = fee[:entry_fee][:senior]
   end
   def info_entry_fee(user)
-    if user.age < 6
-      fee= @infant
-    elsif user.age < 13
-      fee= @children
-    elsif user.age < 65
-      fee= @adult
-    elsif user.age < 121
-      fee= @senior
+    fee =
+    case user.age
+      when 0..5
+        @infant
+      when 6..12
+        @children
+      when 13..64
+        @adult
+      when 65..120
+        @senior
     end
-  puts "#{user.name}の入場料は#{fee}円です。"
-  end
+    puts "#{user.name}さんの入場料金は#{fee}円です。"
+   end
+
+end
+
 
 def q20
   # ここは変更しないで下さい（動物園・ユーザー情報は変更していただいてOKです）
